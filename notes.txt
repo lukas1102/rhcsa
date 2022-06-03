@@ -1,0 +1,47 @@
+chap 1 installation of rhel: 
+Custom Installation:
+    -> manual partition
+        -> LVM not for booting use standard partition for device type
+
+chap 2 linux commands:
+    pwd
+    whoami
+    ls
+    ls -l
+    ip a s 
+    free 
+    free -m (MiB)
+    df -h 
+    cat /etc/hosts
+    findmnt
+    history
+    !11
+    !f (last command started with f)
+    less
+    ps aux
+    wc (lines, words, characters)
+    ls > lsfiles
+    ls >> lsfiles
+    ls lsdsfs 2> errors
+    ls lwers * 2> /dev/null 
+    env | less
+    alias
+
+STDIN  -> CMD -> STDOUT
+file <        > filename
+                STDERR
+              2> errors
+    
+    ls /etc > etcfiles
+    less etcfiles
+    who 
+    who > etcfiles 
+    grep -R student /etc 2> /dev/null 
+
+    cat /etc/os-release
+    useradd linda
+    /usr/bin (user binaries)
+    /usr/sbin (system binaries) 
+    /var/log
+    man hier
+    
