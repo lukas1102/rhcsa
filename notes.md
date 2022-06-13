@@ -38,10 +38,36 @@ file <        > filename
     who > etcfiles 
     grep -R student /etc 2> /dev/null 
 
+    Standard directories are definded in the FHS: /boot, /home, /var
+            mount
+    /  <-- /dev/sda2
+    /boot <-- /dev/sda1
+    /home  <-- server:/home
+    /var  <-- /dev/sdb
+
+     cd .. 
+    cd /boot
+    ll vmlinuz*.el8  (linux kernel)
+    cd /dev
+    ll
+    (major, minor identifier of the kernel)
+    cd /etc
+    cat passwd
+    cat redhat-release
+
     cat /etc/os-release
+    cd /home
     useradd linda
+    cd /usr
     /usr/bin (user binaries)
     /usr/sbin (system binaries) 
     /var/log
     man hier
+    
+
+    
+
+
+
+    
     
