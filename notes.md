@@ -176,6 +176,7 @@ links:
 	ln /etc/hosts /root/hardhosts
 	ls -il /etc/hosts /root/hardhosts
 	ln -s /etc/hosts symhosts  (absolut filename)
+	ln -s /var .
 	ls -il /etc/hosts /root/hardhosts /root/symhosts
 	ls -il
 	rm -f /etc/hosts
@@ -202,8 +203,73 @@ tar:
 	zip
 	xz
 		xz -k mytar 
-	
 
+ctrl +a goes to pos1
+mkdir /tmp/archive; tar -xvf mytar.xz -C /tmp/archive
 
-    
-    
+common text tools:
+	more was original file paper
+	less was developed to enhance more
+	to do more, use less	
+
+	less /etc/passwd
+	less:
+		space bar for going down
+		arrow keys or page up/down for moving
+		q for quit
+	more can only go down, not up. it shows the percentage of the page
+	head (first 10 lines)
+	tail (last 10 lines)
+	 -n (number of lines)
+	head -n 10 /etc/passwd | tail -n 1 (get only line 10)
+	tail -f /var/log/messages
+	cat (dumps text file content)
+		-A shows all nonprintable characters
+		-b numbers lines
+		-s suppresses repeated empty lines
+	tac (is doing cat in reverse order)
+	cat -A /etc/hosts
+		(^I tab, $ end of line)
+	cut (filters output)
+	cut -f 3 -d : /etc/passwd | less (shows 3.line)
+	sort (sorts output)
+	cut -f 3 -d : /etc/passwd | sort | less 
+	cut -f 3 -d : /etc/passwd | sort -n | less (numeric order) 
+	tr (translates)
+	cut -f 1 -d : /etc/passwd | sort | tr [a-z] [A-Z]
+	cut -f 1 -d : /etc/passwd | sort | tr [:lower:] [:upper:] (also works with special chars)
+
+	grep (generic regular expressions parser, for find test in files)
+	ps aux | grep ssh
+	grep linda * 2> /dev/null
+	grep -l linda * 2> /dev/null (show only the files)
+	grep -i linda * (case sensitive)
+	grep -A4 -B5 linda /etc/passwd (4 lines after the match, 5 lines before match)
+	grep -Rl root /etc 2> /dev/null | less (recursive search)
+
+regular expressions: (are text patterns, dont confuse it globbing)
+	use regex for text inside a file, and globbing for file names
+	grep 'a*' a* (first 'a*' is regex, a* is globbing with out ' the bash is interpreting the regex)
+	common tools for regex are grep, vim, awk, sed
+	man 7 regex
+	regex are built around atoms:
+		atoms can be a single char, range of chars or a dot
+		atoms can also be a class [[:alpha:]], [[:upper:]], [[:digit:]], [[:alnum:]]
+	second is a repition operator, for how often a char occurs
+	third element is indication where to find next char
+	grep 'b.t' regtext (. one single char) 
+	grep 'b.*t' regtext (* repition operator 0 or more times)
+	grep 'bo*t' regtext 
+	egrep 'b.?t' regtext (extended regular expression ? 0,1 time occurence)
+	^ beginning of line
+	$ end of line
+	\< beginning of word
+	\> end of word
+	* zero or more times
+	+ one or more times
+	? zero or one times
+	{n} exactly n times
+awk: (powerful text processing tool)
+	awk -F : '/linda/ { print $4}' /etc/passwd
+	awk -F : '{ print $NF}' /etc/passwd (NF for number of fields, printing last field)
+	ls -l /etc | awk '/pass/ { print }' | less <--> ls -l /etc | grep pass
