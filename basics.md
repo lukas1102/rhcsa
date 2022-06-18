@@ -1,67 +1,67 @@
 ## chap 1 installation of rhel: 
-Custom Installation:
-    -> manual partition
-        -> LVM not for booting use standard partition for device type
+Custom Installation: <br />
+    -> manual partition <br />
+        -> LVM not for booting use standard partition for device type <br />
 
 ## chap 2 linux commands:
-pwd
-whoami
-ls
-ls -l
-ip a s 
-free 
-free -m (MiB)
-df -h 
-cat /etc/hosts
-findmnt
-history
-!11
-!f (last command started with f)
-less
-ps aux
-wc (lines, words, characters)
-ls > lsfiles
-ls >> lsfiles
-ls lsdsfs 2> errors
-ls lwers * 2> /dev/null 
-env | less
-alias
-
-STDIN  -> CMD -> STDOUT
-file <        > filename
-                STDERR
-              2> errors
-    
-ls /etc > etcfiles
-less etcfiles
-who 
-who > etcfiles 
-grep -R student /etc 2> /dev/null 
-
-*Standard directories are definded in the FHS: /boot, /home, /var*
-        mount
-/  <-- /dev/sda2
-/boot <-- /dev/sda1
-/home  <-- server:/home
-/var  <-- /dev/sdb
-
-cd .. 
-cd /boot
-ll vmlinuz*.el8  (linux kernel)
-cd /dev
-ll
-(major, minor identifier of the kernel)
-cd /etc
-cat passwd
-cat redhat-release
-
-cat /etc/os-release
-cd /home
-useradd linda
-cd /usr
-/usr/bin (user binaries)
-/usr/sbin (system binaries) 
-/var/log
+pwd <br />
+whoami <br />
+ls <br />
+ls -l <br />
+ip a s  <br />
+free  <br />
+free -m (MiB) <br />
+df -h  <br />
+cat /etc/hosts <br />
+findmnt <br />
+history <br />
+!11 <br />
+!f (last command started with f) <br />
+less <br />
+ps aux <br />
+wc (lines, words, characters) <br />
+ls > lsfiles <br />
+ls >> lsfiles <br />
+ls lsdsfs 2> errors <br />
+ls lwers * 2> /dev/null  <br />
+env | less <br />
+alias <br />
+ <br />
+STDIN  -> CMD -> STDOUT <br />
+file <        > filename <br />
+                STDERR <br />
+              2> errors <br />
+     <br />
+ls /etc > etcfiles <br />
+less etcfiles <br />
+who  <br />
+who > etcfiles  <br />
+grep -R student /etc 2> /dev/null  <br />
+ <br />
+*Standard directories are definded in the FHS: /boot, /home, /var* <br />
+        mount <br />
+/  <-- /dev/sda2 <br />
+/boot <-- /dev/sda1 <br />
+/home  <-- server:/home <br />
+/var  <-- /dev/sdb <br />
+ <br />
+cd ..  <br />
+cd /boot <br />
+ll vmlinuz*.el8  (linux kernel) <br />
+cd /dev <br />
+ll <br />
+(major, minor identifier of the kernel) <br />
+cd /etc <br />
+cat passwd <br />
+cat redhat-release <br />
+ <br />
+cat /etc/os-release <br />
+cd /home <br />
+useradd linda <br />
+cd /usr <br />
+/usr/bin (user binaries) <br />
+/usr/sbin (system binaries)  <br />
+/var/log <br />
 ### man
 man hier
 man man
