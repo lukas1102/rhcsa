@@ -216,7 +216,6 @@ tar -xvf (extracts to the current directory, tar always stores relative files)
 for compression use -z, -j or -J 
 mv my_archive.tar mytar 
 file mytar 
-	 <br />
 ```
 
 compression solutions: <br />
@@ -230,7 +229,7 @@ zip <br />
 xz <br />
 	xz -k mytar  <br />
 
-*ctrl +a goes to pos1*
+*ctrl +a goes to pos1* <br />
 `mkdir /tmp/archive; tar -xvf mytar.xz -C /tmp/archive`
 
 ### common text tools:
@@ -280,9 +279,9 @@ grep -Rl root /etc 2> /dev/null | less (recursive search)
 ## regular expressions: 
 *are text patterns, dont confuse it globbing*
 use regex for text inside a file, and globbing for file names <br />
-`grep 'a*' a* (first 'a*' is regex, a* is globbing with out ' the bash is interpreting the regex) `
+`grep 'a*' a* ` (first 'a\*' is regex, a\* is globbing with out ' the bash is interpreting the regex) <br />
 common tools for regex are grep, vim, awk, sed <br />
-man 7 regex <br />
+`man 7 regex` <br />
 regex are built around atoms: <br />
 	- atoms can be a single char, range of chars or a dot <br />
 	- atoms can also be a class [[:alpha:]], [[:upper:]], [[:digit:]], [[:alnum:]] <br />
