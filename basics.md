@@ -1,42 +1,46 @@
-## chap 1 installation of rhel: 
+## Installation of rhel: 
 Custom Installation: <br />
     -> manual partition <br />
         -> LVM not for booting use standard partition for device type <br />
 
-## chap 2 linux commands:
-pwd <br />
-whoami <br />
-ls <br />
-ls -l <br />
-ip a s  <br />
-free  <br />
-free -m (MiB) <br />
-df -h  <br />
-cat /etc/hosts <br />
-findmnt <br />
-history <br />
-!11 <br />
-!f (last command started with f) <br />
-less <br />
-ps aux <br />
-wc (lines, words, characters) <br />
-ls > lsfiles <br />
-ls >> lsfiles <br />
-ls lsdsfs 2> errors <br />
-ls lwers * 2> /dev/null  <br />
-env | less <br />
-alias <br />
+## Linux commands:
+```
+pwd 
+whoami 
+ls 
+ls -l 
+ip a s  
+free  
+free -m (MiB) 
+df -h  
+cat /etc/hosts 
+findmnt 
+history 
+!11 
+!f *(last command started with f)* 
+less 
+ps aux 
+wc *(lines, words, characters)* 
+ls > lsfiles 
+ls >> lsfiles 
+ls lsdsfs 2> errors 
+ls lwers * 2> /dev/null  
+env | less 
+alias 
+```
  <br />
 STDIN  -> CMD -> STDOUT <br />
 file <        > filename <br />
                 STDERR <br />
               2> errors <br />
      <br />
-ls /etc > etcfiles <br />
-less etcfiles <br />
-who  <br />
-who > etcfiles  <br />
-grep -R student /etc 2> /dev/null  <br />
+```
+ls /etc > etcfiles 
+less etcfiles 
+who  
+who > etcfiles  
+grep -R student /etc 2> /dev/null  
+```
  <br />
 *Standard directories are definded in the FHS(Filesystem Hierarchy Standard): /boot, /home, /var* <br />
         mount <br />
@@ -45,23 +49,27 @@ grep -R student /etc 2> /dev/null  <br />
 /home  <-- server:/home <br />
 /var  <-- /dev/sdb <br />
  <br />
-cd ..  <br />
-cd /boot <br />
-ll vmlinuz*.el8  (linux kernel) <br />
-cd /dev <br />
-ll <br />
-(major, minor identifier of the kernel) <br />
-cd /etc <br />
-cat passwd <br />
-cat redhat-release <br />
- <br />
-cat /etc/os-release <br />
-cd /home <br />
-useradd linda <br />
-cd /usr <br />
-/usr/bin (user binaries) <br />
-/usr/sbin (system binaries)  <br />
-/var/log <br />
+ ```
+cd ..  
+cd /boot 
+ll vmlinuz*.el8  *(linux kernel)* 
+cd /dev 
+ll 
+```
+*(major, minor identifier of the kernel)* <br />
+```
+cd /etc 
+cat passwd 
+cat redhat-release 
+ 
+cat /etc/os-release 
+cd /home 
+useradd linda 
+cd /usr 
+/usr/bin *(user binaries)* 
+/usr/sbin *(system binaries)*  
+/var/log 
+```
 ### man
 man hier <br />
 man man <br />
@@ -85,7 +93,7 @@ command structure [option] optional  <br />
 man lvcreate <br />
 man ls <br />
 mandb <br />
-man -k apropos to search the mandb based on a keyword <br />
+man -k apropos *to search the mandb based on a keyword* <br />
 	 <br />
 man -k user | grep 8 <br />
 
@@ -112,13 +120,13 @@ $ set cursor to end of line <br />
 :%s/old/new/g global substitute of old to new <br />
 
 ### globbing and wildcards:
-globbing is shell feature that helps matching filenames, not confusing with regex <br />
+*globbing is a shell feature that helps matching filenames, not confusing with regex* <br />
 man 7 glob <br />
 ls /etc/host* <br />
 touch hosts ghosts gosts <br />
 ls ?ost <br />
 ls [hm]ost <br />
-ls [!hm]ost everything that starts not with h,m <br />
+ls [!hm]ost *everything that starts not with h,m* <br />
 touch script{0..100} <br />
 ls script[0-9][0-9] <br />
 ls /etc/*[0-9]*  -> in globbing if a directory matches a directory, ls will show the content of the directory <br />
@@ -170,7 +178,7 @@ ln -s symbolic link <br />
 name, name2, name3 -> inode(inode counter) -> blocks  (hard link) <br />
 slink1 -> name2 (symbolic link) <br />
 	 <br />
-*symbolic links: cross devices, directories* <br />
+*symbolic links work across devices and directories* <br />
 ls -il (inode number) <br />
 ln /etc/hosts /root/hardhosts <br />
 ls -il /etc/hosts /root/hardhosts <br />
@@ -235,7 +243,7 @@ cut -f 3 -d : /etc/passwd | sort | less  <br />
 cut -f 3 -d : /etc/passwd | sort -n | less (numeric order)  <br />
 tr (translates) <br />
 cut -f 1 -d : /etc/passwd | sort | tr [a-z] [A-Z] <br />
-cut -f 1 -d : /etc/passwd | sort | tr [:lower:] [:upper:] (also works with special chars) <br />
+cut -f 1 -d : /etc/passwd | sort | tr [:lower:] [:upper:] *(also works with special chars)* <br />
 
 ### grep (generic regular expressions parser, for find test in files)
 ps aux | grep ssh <br />
@@ -262,13 +270,15 @@ grep 'bo*t' regtext  <br />
 egrep 'b.?t' regtext (extended regular expression ? 0,1 time occurence) <br />
 ^ beginning of line <br />
 $ end of line <br />
-\< beginning of word <br />
-\> end of word <br />
+\\< beginning of word <br />
+\\> end of word <br />
 * zero or more times <br />
 + one or more times <br />
 ? zero or one times <br />
 {n} exactly n times <br />
-### awk: (powerful text processing tool) <br />
-awk -F : '/linda/ { print $4}' /etc/passwd <br />
+
+### awk: (powerful text processing tool) 
+awk -F : '{ print $1 " \t" $4 }' /etc/passwd <br />
+awk -F : '/linda/ { print $4 }' /etc/passwd <br />
 awk -F : '{ print $NF}' /etc/passwd (NF for number of fields, printing last field) <br />
 ls -l /etc | awk '/pass/ { print }' | less <--> ls -l /etc | grep pass <br />
