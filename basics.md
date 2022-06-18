@@ -17,10 +17,10 @@ cat /etc/hosts
 findmnt 
 history 
 !11 
-!f *(last command started with f)* 
+!f (last command started with f)
 less 
 ps aux 
-wc *(lines, words, characters)* 
+wc (lines, words, characters)
 ls > lsfiles 
 ls >> lsfiles 
 ls lsdsfs 2> errors 
@@ -28,12 +28,12 @@ ls lwers * 2> /dev/null
 env | less 
 alias 
 ```
- <br />
+
 STDIN  -> CMD -> STDOUT <br />
 file <        > filename <br />
                 STDERR <br />
               2> errors <br />
-     <br />
+
 ```
 ls /etc > etcfiles 
 less etcfiles 
@@ -41,27 +41,29 @@ who
 who > etcfiles  
 grep -R student /etc 2> /dev/null  
 ```
- <br />
+
 *Standard directories are definded in the FHS(Filesystem Hierarchy Standard): /boot, /home, /var* <br />
         mount <br />
 /  <-- /dev/sda2 <br />
 /boot <-- /dev/sda1 <br />
 /home  <-- server:/home <br />
 /var  <-- /dev/sdb <br />
- <br />
+
  ```
 cd ..  
 cd /boot 
-ll vmlinuz*.el8  *(linux kernel)* 
+ll vmlinuz*.el8  (linux kernel)
 cd /dev 
 ll 
 ```
+
 *(major, minor identifier of the kernel)* <br />
+
 ```
 cd /etc 
 cat passwd 
 cat redhat-release 
- 
+
 cat /etc/os-release 
 cd /home 
 useradd linda 
@@ -70,10 +72,11 @@ cd /usr
 /usr/sbin *(system binaries)*  
 /var/log 
 ```
+
 ### man
-man hier <br />
-man man <br />
-man is section based <br />
+man hier 
+man man 
+man is section based 
  <br />
 sections: <br />
  1 executes (without root privileges) <br />
