@@ -74,9 +74,11 @@ cd /usr
 ```
 
 ### man
+```
 man hier 
 man man 
-man is section based 
+```
+man is section based  <br />
  <br />
 sections: <br />
  1 executes (without root privileges) <br />
@@ -93,12 +95,15 @@ command structure [option] optional  <br />
 					  -a| --all y|n   <br />
  <br />
 					lvcreate -L|--size Size[m|UNIT] VG <br />
-man lvcreate <br />
-man ls <br />
-mandb <br />
-man -k apropos *to search the mandb based on a keyword* <br />
-	 <br />
-man -k user | grep 8 <br />
+
+```
+man lvcreate 
+man ls 
+mandb 
+man -k apropos (to search the mandb based on a keyword)
+
+man -k user | grep 8 
+```
 
 ### vim:
 start vim -> command mode  - by pressing a,i,o or Ins -> insert mode  - esc -> command mode (:wq!) <br />
@@ -124,49 +129,55 @@ $ set cursor to end of line <br />
 
 ### globbing and wildcards:
 *globbing is a shell feature that helps matching filenames, not confusing with regex* <br />
-man 7 glob <br />
-ls /etc/host* <br />
-touch hosts ghosts gosts <br />
-ls ?ost <br />
-ls [hm]ost <br />
-ls [!hm]ost *everything that starts not with h,m* <br />
-touch script{0..100} <br />
-ls script[0-9][0-9] <br />
-ls /etc/*[0-9]*  -> in globbing if a directory matches a directory, ls will show the content of the directory <br />
-ls -d /etc/*[0-9]* -> dont show directory content <br />
-	
+
+```
+man 7 glob 
+ls /etc/host* 
+touch hosts ghosts gosts 
+ls ?ost 
+ls [hm]ost 
+ls [!hm]ost *everything that starts not with h,m* 
+touch script{0..100} 
+ls script[0-9][0-9] 
+ls /etc/*[0-9]*  -> in globbing if a directory matches a directory, ls will show the content of the directory 
+ls -d /etc/*[0-9]* -> dont show directory content 
+```
 	
 ### cockpit (monitoring tool):
 systemctl enable --now cockpit.socket <br />
 http://localhost:9090
 	
 ### File managment:	
-ls <br />
-mkdir <br />
-mkdir scripts <br />
-mkdir -p new/scripts  <br />
-cp /etc/hosts . <br />
-cp -r /etc/h* . (+ directories and content) <br />
-mv script* scripts/ <br />
-rmdir (only empty directories)  <br />
-rm -rf scripts/  <br />
+```
+ls 
+mkdir 
+mkdir scripts 
+mkdir -p new/scripts  
+cp /etc/hosts . 
+cp -r /etc/h* . (+ directories and content) 
+mv script* scripts/ 
+rmdir (only empty directories)  
+rm -rf scripts/  
+```
 ### finding files:
-which (looks for binaries in a $PATH) <br />
-locate (uses database built by updatedb) <br />
-find  <br />
-	 <br />
-which useradd <br />
-echo $PATH <br />
-updatedb <br />
-locate useradd <br />
-find / -name "hosts" <br />
-find / -name "host?" <br />
-find / -type f -size +100M  (find files >100M) <br />
-find / -user admin (what files do the user admin own) <br />
-find /etc -exec grep -l student {} \; 2> /dev/null searches in a files the word student <br />
-grep -l student /etc/* <br />
-find /etc -size +100c -exec grep -l student {} \; 2> /dev/null  <br />
-find /etc -size +100c -exec grep -l student {} \; -exec cp {} /tmp \; 2> /dev/null  <br />
+```
+which (looks for binaries in a $PATH) 
+locate (uses database built by updatedb)
+find  
+	
+which useradd 
+echo $PATH 
+updatedb 
+locate useradd 
+find / -name "hosts" 
+find / -name "host?" 
+find / -type f -size +100M  (find files >100M) 
+find / -user admin (what files do the user admin own) 
+find /etc -exec grep -l student {} \; 2> /dev/null searches in a files the word student 
+grep -l student /etc/* 
+find /etc -size +100c -exec grep -l student {} \; 2> /dev/null  
+find /etc -size +100c -exec grep -l student {} \; -exec cp {} /tmp \; 2> /dev/null  
+```
 	
 ### mounting: 
 to access a device, it needs a directory <br />
@@ -174,7 +185,8 @@ linux uses multiple mounts <br />
 different types are on different devices: security, manageability, specific mount options <br />
 	
 ### links:
-links are pointer to files in a different location <br />
+*links are pointer to files in a different location* <br />
+
 ln hard link  <br />
 ln -s symbolic link <br />
 	 <br />
@@ -182,26 +194,31 @@ name, name2, name3 -> inode(inode counter) -> blocks  (hard link) <br />
 slink1 -> name2 (symbolic link) <br />
 	 <br />
 *symbolic links work across devices and directories* <br />
-ls -il (inode number) <br />
-ln /etc/hosts /root/hardhosts <br />
-ls -il /etc/hosts /root/hardhosts <br />
-ln -s /etc/hosts symhosts  (absolut filename) <br />
-ln -s /var . <br />
-ls -il /etc/hosts /root/hardhosts /root/symhosts <br />
-ls -il <br />
-rm -f /etc/hosts <br />
-ln /root/hardhosts /etc/hosts  <br />
+```
+ls -il (inode number) 
+ln /etc/hosts /root/hardhosts 
+ls -il /etc/hosts /root/hardhosts 
+ln -s /etc/hosts symhosts  (absolut filename) 
+ln -s /var . 
+ls -il /etc/hosts /root/hardhosts /root/symhosts 
+ls -il 
+rm -f /etc/hosts 
+ln /root/hardhosts /etc/hosts  
+```
 
 ### tar:
-tape archiver, default does not compress data <br />
-tar -cvf my_archive.tar /home /etc  <br />
-tar -tvf (will show content of archive) <br />
-tar -xvf (extracts to the current directory, tar always stores relative files) <br />
-	-C to switch to output path <br />
-for compression use -z, -j or -J <br />
-mv my_archive.tar mytar <br />
-file mytar <br />
+*tar archiver, default does not compress data* <br />
+```
+tar -cvf my_archive.tar /home /etc  
+tar -tvf (will show content of archive) 
+tar -xvf (extracts to the current directory, tar always stores relative files) 
+	-C to switch to output path 
+for compression use -z, -j or -J 
+mv my_archive.tar mytar 
+file mytar 
 	 <br />
+```
+
 compression solutions: <br />
 gzip  <br />
 	gzip mytar <br />
@@ -214,52 +231,56 @@ xz <br />
 	xz -k mytar  <br />
 
 *ctrl +a goes to pos1*
-mkdir /tmp/archive; tar -xvf mytar.xz -C /tmp/archive
+`mkdir /tmp/archive; tar -xvf mytar.xz -C /tmp/archive`
 
 ### common text tools:
-more was original file paper <br />
-less was developed to enhance more <br />
-to do more, use less	 <br />
- <br />
-less /etc/passwd <br />
-less: <br />
-	space bar for going down <br />
-	arrow keys or page up/down for moving <br />
-	q for quit <br />
-more can only go down, not up. it shows the percentage of the page <br />
-head (first 10 lines) <br />
-tail (last 10 lines) <br />
- -n (number of lines) <br />
-head -n 10 /etc/passwd | tail -n 1 (get only line 10) <br />
-tail -f /var/log/messages <br />
-cat (dumps text file content) <br />
-	-A shows all nonprintable characters <br />
-	-b numbers lines <br />
-	-s suppresses repeated empty lines <br />
-tac (is doing cat in reverse order) <br />
-cat -A /etc/hosts <br />
-	(^I tab, $ end of line) <br />
-cut (filters output) <br />
-cut -f 3 -d : /etc/passwd | less (shows 3.line) <br />
-sort (sorts output) <br />
-cut -f 3 -d : /etc/passwd | sort | less  <br />
-cut -f 3 -d : /etc/passwd | sort -n | less (numeric order)  <br />
-tr (translates) <br />
-cut -f 1 -d : /etc/passwd | sort | tr [a-z] [A-Z] <br />
-cut -f 1 -d : /etc/passwd | sort | tr [:lower:] [:upper:] *(also works with special chars)* <br />
+```
+more was original file paper 
+less was developed to enhance more 
+to do more, use less	 
+ 
+less /etc/passwd 
+less: 
+	space bar for going down 
+	arrow keys or page up/down for moving 
+	q for quit 
+more can only go down, not up. it shows the percentage of the page 
+head (first 10 lines) 
+tail (last 10 lines) 
+ -n (number of lines) 
+head -n 10 /etc/passwd | tail -n 1 (get only line 10) 
+tail -f /var/log/messages 
+cat (dumps text file content) 
+	-A shows all nonprintable characters 
+	-b numbers lines 
+	-s suppresses repeated empty lines 
+tac (is doing cat in reverse order) 
+cat -A /etc/hosts 
+	(^I tab, $ end of line) 
+cut (filters output) 
+cut -f 3 -d : /etc/passwd | less (shows 3.line) 
+sort (sorts output) 
+cut -f 3 -d : /etc/passwd | sort | less  
+cut -f 3 -d : /etc/passwd | sort -n | less (numeric order)  
+tr (translates) 
+cut -f 1 -d : /etc/passwd | sort | tr [a-z] [A-Z] 
+cut -f 1 -d : /etc/passwd | sort | tr [:lower:] [:upper:] (also works with special chars)
+```
 
 ### grep (generic regular expressions parser, for find test in files)
-ps aux | grep ssh <br />
-grep linda * 2> /dev/null <br />
-grep -l linda * 2> /dev/null (show only the files) <br />
-grep -i linda * (case sensitive) <br />
-grep -A4 -B5 linda /etc/passwd (4 lines after the match, 5 lines before match) <br />
-grep -Rl root /etc 2> /dev/null | less (recursive search) <br />
+```
+ps aux | grep ssh 
+grep linda * 2> /dev/null 
+grep -l linda * 2> /dev/null (show only the files) 
+grep -i linda * (case sensitive) 
+grep -A4 -B5 linda /etc/passwd (4 lines after the match, 5 lines before match) 
+grep -Rl root /etc 2> /dev/null | less (recursive search) 
+```
 
 ## regular expressions: 
 *are text patterns, dont confuse it globbing*
 use regex for text inside a file, and globbing for file names <br />
-grep 'a*' a* (first 'a*' is regex, a* is globbing with out ' the bash is interpreting the regex) <br />
+`grep 'a*' a* (first 'a*' is regex, a* is globbing with out ' the bash is interpreting the regex) `
 common tools for regex are grep, vim, awk, sed <br />
 man 7 regex <br />
 regex are built around atoms: <br />
@@ -267,21 +288,25 @@ regex are built around atoms: <br />
 	- atoms can also be a class [[:alpha:]], [[:upper:]], [[:digit:]], [[:alnum:]] <br />
 second is a repition operator, for how often a char occurs <br />
 third element is indication where to find next char <br />
-grep 'b.t' regtext (. one single char)  <br />
-grep 'b.*t' regtext (* repition operator 0 or more times) <br />
-grep 'bo*t' regtext  <br />
-egrep 'b.?t' regtext (extended regular expression ? 0,1 time occurence) <br />
+```
+grep 'b.t' regtext (. one single char)  
+grep 'b.*t' regtext (* repition operator 0 or more times) 
+grep 'bo*t' regtext  
+egrep 'b.?t' regtext (extended regular expression ? 0,1 time occurence) 
+```
 ^ beginning of line <br />
 $ end of line <br />
 \\< beginning of word <br />
 \\> end of word <br />
-* zero or more times <br />
-+ one or more times <br />
+\* zero or more times <br />
+\+ one or more times <br />
 ? zero or one times <br />
 {n} exactly n times <br />
 
 ### awk: (powerful text processing tool) 
-awk -F : '{ print $1 " \t" $4 }' /etc/passwd <br />
-awk -F : '/linda/ { print $4 }' /etc/passwd <br />
-awk -F : '{ print $NF}' /etc/passwd (NF for number of fields, printing last field) <br />
-ls -l /etc | awk '/pass/ { print }' | less <--> ls -l /etc | grep pass <br />
+```
+awk -F : '{ print $1 " \t" $4 }' /etc/passwd 
+awk -F : '/linda/ { print $4 }' /etc/passwd 
+awk -F : '{ print $NF}' /etc/passwd (NF for number of fields, printing last field) 
+ls -l /etc | awk '/pass/ { print }' | less <--> ls -l /etc | grep pass 
+```
