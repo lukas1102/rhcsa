@@ -1,7 +1,7 @@
 ## Installation of rhel: 
 Custom Installation: <br />
-    -> manual partition <br />
-        -> LVM not for booting use standard partition for device type <br />
+>    -> manual partition <br />
+>>      -> LVM not for booting use standard partition for device type <br />
 
 ## Linux commands:
 ```
@@ -31,8 +31,8 @@ alias
 
 STDIN  -> CMD -> STDOUT <br />
 file <        > filename <br />
-                STDERR <br />
-              2> errors <br />
+>>                STDERR <br />
+>>              2> errors <br />
 
 ```
 ls /etc > etcfiles 
@@ -43,7 +43,7 @@ grep -R student /etc 2> /dev/null
 ```
 
 *Standard directories are definded in the FHS(Filesystem Hierarchy Standard): /boot, /home, /var* <br />
-        mount <br />
+>        mount <br />
 /  <-- /dev/sda2 <br />
 /boot <-- /dev/sda1 <br />
 /home  <-- server:/home <br />
@@ -88,13 +88,13 @@ sections: <br />
 examples near at the bottom (up G) /examples <br />
 synopsis: <br />
 command structure [option] optional  <br />
-					... previous item can be repeated <br />
-				  short or long notations <br />
-				  SEE ALSO (related commands) <br />
+>>					... previous item can be repeated <br />
+>>				  short or long notations <br />
+>>				  SEE ALSO (related commands) <br />
 					   <br />
-					  -a| --all y|n   <br />
+>>>					  -a| --all y|n   <br />
  <br />
-					lvcreate -L|--size Size[m|UNIT] VG <br />
+>>>				lvcreate -L|--size Size[m|UNIT] VG <br />
 
 ```
 man lvcreate 
@@ -136,7 +136,7 @@ ls /etc/host*
 touch hosts ghosts gosts 
 ls ?ost 
 ls [hm]ost 
-ls [!hm]ost *everything that starts not with h,m* 
+ls [!hm]ost (everything that starts not with h,m) 
 touch script{0..100} 
 ls script[0-9][0-9] 
 ls /etc/*[0-9]*  -> in globbing if a directory matches a directory, ls will show the content of the directory 
@@ -144,7 +144,7 @@ ls -d /etc/*[0-9]* -> dont show directory content
 ```
 	
 ### cockpit (monitoring tool):
-systemctl enable --now cockpit.socket <br />
+`systemctl enable --now cockpit.socket` <br />
 http://localhost:9090
 	
 ### File managment:	
@@ -212,7 +212,7 @@ ln /root/hardhosts /etc/hosts
 tar -cvf my_archive.tar /home /etc  
 tar -tvf (will show content of archive) 
 tar -xvf (extracts to the current directory, tar always stores relative files) 
-	-C to switch to output path 
+>	-C to switch to output path 
 for compression use -z, -j or -J 
 mv my_archive.tar mytar 
 file mytar 
@@ -220,14 +220,14 @@ file mytar
 
 compression solutions: <br />
 gzip  <br />
-	gzip mytar <br />
-	gzip -k mytar  (keeps origin) <br />
-	gunzip mytar.gz <br />
+>	gzip mytar <br />
+>	gzip -k mytar  (keeps origin) <br />
+>	gunzip mytar.gz <br />
 bzip2 <br />
-	bzip2 -k mytar	 <br />
+>	bzip2 -k mytar	 <br />
 zip <br />
 xz <br />
-	xz -k mytar  <br />
+>	xz -k mytar  <br />
 
 *ctrl +a goes to pos1* <br />
 `mkdir /tmp/archive; tar -xvf mytar.xz -C /tmp/archive`
@@ -240,9 +240,9 @@ to do more, use less
  
 less /etc/passwd 
 less: 
-	space bar for going down 
-	arrow keys or page up/down for moving 
-	q for quit 
+>	space bar for going down 
+>	arrow keys or page up/down for moving 
+>	q for quit 
 more can only go down, not up. it shows the percentage of the page 
 head (first 10 lines) 
 tail (last 10 lines) 
@@ -250,12 +250,12 @@ tail (last 10 lines)
 head -n 10 /etc/passwd | tail -n 1 (get only line 10) 
 tail -f /var/log/messages 
 cat (dumps text file content) 
-	-A shows all nonprintable characters 
-	-b numbers lines 
-	-s suppresses repeated empty lines 
+>	-A shows all nonprintable characters 
+>	-b numbers lines 
+>	-s suppresses repeated empty lines 
 tac (is doing cat in reverse order) 
 cat -A /etc/hosts 
-	(^I tab, $ end of line) 
+>	(^I tab, $ end of line) 
 cut (filters output) 
 cut -f 3 -d : /etc/passwd | less (shows 3.line) 
 sort (sorts output) 
@@ -279,7 +279,7 @@ grep -Rl root /etc 2> /dev/null | less (recursive search)
 ## regular expressions: 
 *are text patterns, dont confuse it globbing*
 use regex for text inside a file, and globbing for file names <br />
-`grep 'a*' a* ` (first 'a\*' is regex, a\* is globbing with out ' the bash is interpreting the regex) <br />
+`grep 'a*' a*`  (first 'a\*' is regex, a\* is globbing with out ' the bash is interpreting the regex) <br />
 common tools for regex are grep, vim, awk, sed <br />
 `man 7 regex` <br />
 regex are built around atoms: <br />
