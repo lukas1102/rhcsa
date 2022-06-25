@@ -89,11 +89,9 @@ examples near at the bottom (up G) /examples <br />
 synopsis: <br />
 command structure [option] optional  <br />
 			... previous item can be repeated <br />
-			  short or long notations <br />
-			  SEE ALSO (related commands) <br />
-					
-				  -a| --all y|n   <br />
-
+			short or long notations <br />
+			SEE ALSO (related commands) <br />	
+			  -a| --all y|n   <br />
 				lvcreate -L|--size Size[m|UNIT] VG <br />
 
 ```
