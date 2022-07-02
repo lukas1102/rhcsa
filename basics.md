@@ -292,6 +292,10 @@ grep 'b.t' regtext (. one single char)
 grep 'b.*t' regtext (* repition operator 0 or more times) 
 grep 'bo*t' regtext  
 egrep 'b.?t' regtext (extended regular expression ? 0,1 time occurence) 
+grep '\<root\>' * 2> /dev/null (searches for the word root)
+grep '\<alex\>' * 2> /dev/null 
+grep '^alex$' * 2> /dev/null 
+egrep '^.{3}$' * 2> /dev/null 
 ```
 ^ beginning of line <br />
 $ end of line <br />
@@ -309,3 +313,22 @@ awk -F : '/linda/ { print $4 }' /etc/passwd
 awk -F : '{ print $NF}' /etc/passwd (NF for number of fields, printing last field) 
 ls -l /etc | awk '/pass/ { print }' | less <--> ls -l /etc | grep pass 
 ```
+
+### sed screen editor
+*sed is a stream editor, used to search and transform text*
+```
+vim sedfile
+sed -n 4p sedfile  (prints the 4th line of the file)
+sed -i s/four/FOUR/g sedfile  (-i writes directly to the file, not stdout)
+sed -i -e '2d' sedfile			(-e passes an edit command to sed; deletes the 2nd line)
+```
+##Connecting to RHEL 
+### understanding the root user
+
+users processes
+
+user space
+----------- (permissions, syscall)
+kernel space	(root)
+drivers
+hardware
