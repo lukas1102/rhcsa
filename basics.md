@@ -1,4 +1,4 @@
-## Installation of rhel: 
+## Installation of RHEL: 
 Custom Installation: <br />
 &nbsp;&nbsp;&nbsp;&nbsp;-> manual partition <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> LVM not for booting use standard partition for device type <br />
@@ -162,7 +162,7 @@ rm -rf scripts/
 which (looks for binaries in a $PATH) 
 locate (uses database built by updatedb)
 find  
-	
+
 which useradd 
 echo $PATH 
 updatedb 
@@ -320,13 +320,26 @@ sed -n 4p sedfile  (prints the 4th line of the file)
 sed -i s/four/FOUR/g sedfile  (-i writes directly to the file, not stdout)
 sed -i -e '2d' sedfile			(-e passes an edit command to sed; deletes the 2nd line)
 ```
-##Connecting to RHEL 
-### understanding the root user
 
-users processes
+## Connecting to RHEL 
+### Understanding the root User
 
-user space
------------ (permissions, syscall)
-kernel space	(root)
-drivers
-hardware
+users processes <br />
+
+user space <br />
+----------- (permissions, syscall) <br />
+kernel space	(root) <br />
+drivers <br />
+hardware <br />
+
+### virtual terminal
+/dev/tty (device files)
+tty1 - tty6 are virtual terminals
+use `chvt` to switch between virtual terminals
+or use ctrl + Alt - Fn 
+```
+chvt 4
+w
+```
+
+### su
