@@ -320,26 +320,3 @@ sed -n 4p sedfile  (prints the 4th line of the file)
 sed -i s/four/FOUR/g sedfile  (-i writes directly to the file, not stdout)
 sed -i -e '2d' sedfile			(-e passes an edit command to sed; deletes the 2nd line)
 ```
-
-## Connecting to RHEL 
-### Understanding the root User
-
-users processes <br />
-
-user space <br />
------------ (permissions, syscall) <br />
-kernel space	(root) <br />
-drivers <br />
-hardware <br />
-
-### virtual terminal
-/dev/tty (device files)
-tty1 - tty6 are virtual terminals
-use `chvt` to switch between virtual terminals
-or use ctrl + Alt - Fn 
-```
-chvt 4
-w
-```
-
-### su
