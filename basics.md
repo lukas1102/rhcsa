@@ -231,29 +231,30 @@ xz <br />
 `mkdir /tmp/archive; tar -xvf mytar.xz -C /tmp/archive`
 
 ### common text tools:
-```
-more was original file paper 
-less was developed to enhance more 
-to do more, use less	 
- 
-less /etc/passwd 
-less: 
-&nbsp;&nbsp;&nbsp;&nbsp;space bar for going down 
-&nbsp;&nbsp;&nbsp;&nbsp;arrow keys or page up/down for moving 
-&nbsp;&nbsp;&nbsp;&nbsp;q for quit 
-more can only go down, not up. it shows the percentage of the page 
+
+more was original file paper  <br />
+less was developed to enhance more  <br />
+to do more, use less	 <br />
+
+`less /etc/passwd ` 
+`less:  `
+space bar for going down    <br />
+arrow keys or page up/down for moving   <br />
+q for quit   <br />
+more can only go down, not up. it shows the percentage of the page   <br />
+ ```
 head (first 10 lines) 
 tail (last 10 lines) 
-&nbsp;&nbsp;&nbsp;&nbsp;-n (number of lines) 
+	-n (number of lines) 
 head -n 10 /etc/passwd | tail -n 1 (get only line 10) 
 tail -f /var/log/messages 
 cat (dumps text file content) 
-&nbsp;&nbsp;&nbsp;&nbsp;-A shows all nonprintable characters 
-&nbsp;&nbsp;&nbsp;&nbsp;-b numbers lines 
-&nbsp;&nbsp;&nbsp;&nbsp;-s suppresses repeated empty lines 
+	-A shows all nonprintable characters 
+	-b numbers lines 
+	-s suppresses repeated empty lines 
 tac (is doing cat in reverse order) 
 cat -A /etc/hosts 
-&nbsp;&nbsp;&nbsp;&nbsp;(^I tab, $ end of line) 
+	(^I tab, $ end of line) 
 cut (filters output) 
 cut -f 3 -d : /etc/passwd | less (shows 3.line) 
 sort (sorts output) 
@@ -275,7 +276,7 @@ grep -Rl root /etc 2> /dev/null | less (recursive search)
 ```
 
 ## regular expressions: 
-*are text patterns, dont confuse it globbing*
+are text patterns, dont confuse it globbing <br />
 use regex for text inside a file, and globbing for file names <br />
 `grep 'a*' a*`  (first 'a\*' is regex, a\* is globbing with out ' the bash is interpreting the regex) <br />
 common tools for regex are grep, vim, awk, sed <br />

@@ -92,19 +92,19 @@ passwd linda
 `useradd -D` to specify default settings <br />
 file /etc/default/useradd aplly to useradd only <br />
  
-SKEL:/etc/skel		(files in /etc/skel are created to the user home directory upon creation) <br />
+*SKEL:/etc/skel	*	(files in /etc/skel are created to the user home directory upon creation) <br />
 
-alternatively write defaults to /etc/login.defs <br />
+alternatively write defaults to */etc/login.defs* <br />
 
 changing these settings only affects to new created users <br />
 
-/etc/passwd is used to store user properties <br />
+*/etc/passwd* is used to store user properties <br />
 the linux OS only cares about the uids not the name behind the uid <br />
 nobody user has a low permission  <br />
 
-/etc/shadow stores the passwords in a hashed way <br />
+*/etc/shadow* stores the passwords in a hashed way <br />
 
-student:$543532342:17912:0:99999:7::: <br />
+*student:$543532342:17912:0:99999:7:::* <br />
 17912 -> days after 1.jan.1970 the password was set for the first time  <br />
 0: minimum days the password can be used <br />
 99999: max days the password can be used  <br />
@@ -113,8 +113,8 @@ student:$543532342:17912:0:99999:7::: <br />
 password that is !! is currently disabled. This is the default for newly created users <br />
 If the password is ! that means the account is disabled <br />
 
-/etc/group is used for group policies <br />
-wheel:x:10:student <br />
+*/etc/group* is used for group policies <br />
+*wheel:x:10:student* <br />
 
 ## group membership
 each user has at least 1 group (primary group) <br />
@@ -142,10 +142,10 @@ grep wheel /etc/group
 ```
 
 ## managing password properties
-basic password requirements are stored in /etc/login.defs <br />
+basic password requirements are stored in */etc/login.defs* <br />
 
 for advanced password properties, pluggable authentication modules (PAM) can be used  <br />
-&nbsp;&nbsp;&nbsp;look for the pam_tally2 module <br />
+&nbsp;&nbsp;&nbsp;look for the *pam_tally2* module <br />
 
 ```
 chage student
@@ -160,7 +160,7 @@ chage --help |less
  linux permissions are not additive, if you are the owner, permissions are applied and that´s all <br />
  
  `ls -l` <br />
- drwx------.  3 anna   anna     78 Jun 14 08:02 anna <br />
+ *drwx------.  3 anna   anna     78 Jun 14 08:02 anna* <br />
  d -> directory  <br />
  rwx -> owner permissions <br />
  owner -> anna <br />
@@ -193,5 +193,4 @@ execute always comes with read <br />
 ```
 chmod 750 myfile
 chmod +x myscript
-
 ```
