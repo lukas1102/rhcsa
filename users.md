@@ -193,4 +193,93 @@ execute always comes with read <br />
 ```
 chmod 750 myfile
 chmod +x myscript
+chmod -x,o+r myfile
 ```
+### umask
+the umask is a shell setting that subtracts the umask from the default permissions
+default permissions for files are 666
+default permissions for directories are 777
+
+```
+umask
+touch root1 
+ls -l root1
+umask 027
+touch root2
+ls -l root2
+mkdir rootdir
+ls -ld rootdir
+```
+for changing the default umask change the settings in the following files:
+vim /etc/default
+vim ~/.bash_profile
+
+## special permissions
+
+| | files | directory |
+| :----: | :----: | :----: |
+| suid (4) | run as owner (only on executables) | - |
+| sgid (2) | run as group owner | all files inheret directory group owner |
+| sticky bit (1) | - | delete only if you are the owner of file or directory  | 
+
+
+suid:
+```
+chmod 4770 myfile
+chmod u+s myfile
+
+find / -perm /4000 2> /dev/null
+ls -l /usr/bin/passwd /etc/shadow
+```
+
+sgid:
+```
+chmod 2770 mydir
+chmod g+s mydir
+
+mkdir -p /data/profs
+chown :profs /data/profs
+ls -l /data/
+chmod 770 /data/profs
+lid -g profs
+chmod g+s /data/profs/
+su - audrey
+cd /data/profs
+touch audrey1
+```
+
+sticky bit
+```
+chmod 1770 mydir
+chmod +t mydir
+
+chmod +t /data/profs
+
+## ACLs
+ACLs are used to grant permissions to additional users and groups
+normal ACL applies to existing files only
+default ACL on a dirctory if you want it to apply to new files also
+```
+getfacl shows current settings
+setfacl -R -m g:somegroup:rx /data/groups
+setfacl -m d:g:somegroup:rx /data/groups
+```
+
+```
+mkdir /data
+cd /data
+mkdir account sales
+groupadd account
+groupadd sales
+chgrp sales sales/
+chmod 770 sales/
+
+getfacl sales/
+setfacl -m d:g:account:rx sales/
+ll
+cd sales/
+touch newfile
+getfacl newfile
+```
+
+### Troubleshooting permissions
