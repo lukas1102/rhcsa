@@ -283,3 +283,28 @@ getfacl newfile
 ```
 
 ### Troubleshooting permissions
+```
+# cd /home/linda
+# touch root1
+# touch root2
+# su - linda
+$ ls -ld .
+$ ls -l root*
+$ rm -f root1                       (removing is possible for user linda, because the directory permissions apply)
+$ echo "hello" >> root2             (linda can not write)
+$ vim hello2                        (vim created a new file because it could not write to the original one)
+$ ls -l 
+$ exit 
+# touch randomfile
+# chown linda:linda randomfile
+# chmod 006 randomfile
+# su - linda
+$ cat randomfile                    (not possible, because in Linux there is an exit on match algorithm)
+$ chmod 666 randomfile              (as owner of a file it is possible to change the permissions)
+$ exit
+# echo "rootcontents" > rootfile
+# chmod +t .
+# ls -ld .
+# su - linda
+$ rm -f rootfile                    (is possible, because sticky bits allows only the owner of the file and directory to delete the file!)
+```

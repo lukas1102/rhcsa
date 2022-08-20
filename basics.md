@@ -236,8 +236,8 @@ more was original file paper  <br />
 less was developed to enhance more  <br />
 to do more, use less	 <br />
 
-`less /etc/passwd ` 
-`less:  `
+`less /etc/passwd `  <br />
+`less:  ` <br />
 space bar for going down    <br />
 arrow keys or page up/down for moving   <br />
 q for quit   <br />
