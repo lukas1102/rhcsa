@@ -116,7 +116,7 @@ yum history undo 3
 - rpm is the legacy command to manage RPM packages
 - Do NOT use rpm to install packages as it does not consider dependencies
 - rpm is useful though to perform package queries
-- rpm queries by default are against the database of installed packages, add - p to query package files
+- rpm queries by default are against the database of installed packages, add - q to query package files
 - - rpm -qf /any/file   (package name where the file is coming from)
 - - rpm -ql mypackage   (shows files in a package)
 - - rpm -qc mypackage   (will show configuration files)
