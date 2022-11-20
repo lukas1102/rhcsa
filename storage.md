@@ -213,3 +213,30 @@ systemctl status data-articles.mount
 - The xfsrestore command is used to restore a backup that was made with xfsdump
 - - `xfsrestore -f /backupfiles/data.xfsdump /data`
 - The xfsrepair command can be manually started to repair broken XFS file systems
+
+# Creating a Swap Partition
+- Swap is RAM that is emulated on disk
+- All Linux system shold have at least some swap
+- - the amount of swap depends on the use of the server
+- Swap can be created on any block device, including swap files
+- While creating swap with `parted`, set file system to linux-swap
+- After creating the swap partition, use `mkswap` to create the swap FS
+- Activate using `swapon`
+
+```
+parted /dev/nvme0n2
+print
+mkpart
+swap
+linux-swap
+1GiB
+2GiB
+print
+quit
+lsblk
+mkswap /dev/nvme0n2p2
+free -m
+swapon /dev/nvme0n2p2
+cat >> /etc/fstab << EOF
+/dev/nvme0n2p2      swap        swap        defaults    0 0 EOF
+```
