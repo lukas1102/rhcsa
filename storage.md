@@ -240,3 +240,81 @@ swapon /dev/nvme0n2p2
 cat >> /etc/fstab << EOF
 /dev/nvme0n2p2      swap        swap        defaults    0 0 EOF
 ```
+
+# Understanding LVM, Stratis and VDO
+## Understanding Advanced Storage
+- LVM Logical Volumes
+- - Used during default installation of RHEL
+- - Adds flexibility to storage (resize, snapshots, and more)
+- Stratis
+- - Next generation Volume Managing Filesystem that uses thin provisioning by default
+- - Implemented in user space, which makes API access possible
+- Virtual Data Optimizer
+- - Focused on storing files in the most efficient way
+- - Manages deduplicated and compressed storage pools
+
+## Understanding LVM setup
+
+   ext4    xfs
+    LV      LV
+    |       |
+volume group (abstraction of all the available storage on the system)
+    |
+storge disks, partitions  (physical volumes pv)
+
+## Creating an LVM Logical Volume
+- create a partition, from `parted` use `set n lvm on`
+- use `pvcreate /dev/sdb1` to create the physical volume
+- use `vgcreate vgdata /dev/sdb1` to create the volume group
+- use `lvcreate -n lvdata -L 1G vgdata` to create the logical volume
+- use `mkfs /dev/vgdata/lvdata` to create a file system
+- put in /etc/fstab to mount it persistently
+
+```
+lsblk
+pvcreate /dev/nvme0n2p3
+pvs
+vgcreate vgdata /dev/nvme0n2p3
+pvs
+vgs
+lvcreate -n lvdata -L 812M vgdata
+lvs
+man lvcreate
+mkfs.xfs /dev/vgdata/lvdata
+mkdir -p /mounts/lvm1
+echo "/dev/vgdata/lvdata        /mounts/lvm1     xfs     defaults    0 0" >> /etc/fstab
+mount -a
+mount
+findmnt
+```
+
+## Understanding Device Mapper and LVM Device Names
+- Device mapper is the system that the kernel uses to interface storage devices
+- Device mapper generates meaningless names, like /dev/dm-0 and /dev/dm-1
+- meaningful names are provided as symbolic links through /dev/mapper 
+- - /dev/mapper/vgdata-lvdata
+- alternatively, use the LVM generated symbolic links
+- - /dev/vgdata/lvdata
+
+```
+mount
+tail -n 1 /etc/fstab
+ls -l /dev/vgdata/lvdata /dev/mapper/vgdata-lvdata
+```
+
+## Resizing LVM logical volumes
+- use the `vgs` to verify availability in the volume group
+- if required, use `vgextend` to add one or more PVs to the VG
+- use `lvextend -ir -L +1G` to grow the LVM logical volume, including the file system it´s hosting
+- - `e2resize` is an independent resize utility for ext file systems
+- - `xfs_growfs` can be used to grow an XFS file system
+- shrinking is not possible on XFS volumes
+
+```
+df -h
+vgs
+vgextend vgdata /dev/nvme0n2p4
+vgs
+lvextend -r -L +1020M /dev/vgdata/lvdata
+df -h
+```
