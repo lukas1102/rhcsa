@@ -318,3 +318,165 @@ vgs
 lvextend -r -L +1020M /dev/vgdata/lvdata
 df -h
 ```
+## Understanding Stratis setup
+- Stratis is a volume management file system and is Red Hats answer to Btrfs and ZFS
+- - On top of Stratis a regular file system is needed: XFS
+- It is built on top of any block device, including LVM devices
+- It offers advanced features
+- - Thin provisioning
+- - snapshots
+- - cache tier
+- - programmatic API
+- - monitoring and repair
+
+- The Stratis Pool is created from one or more storage devices (blockdev)
+- - Stratis creates a `/dev/stratis/my-pool` directory for each pool
+- - This directory contains links to devices that represent the file systems in the pool
+- - Block devices in a pool may not be thin provisioned
+- The (XFS) file system is put in a volume on top of the pool and is an integrated part of it 
+- - Each pool can contain one or more file systems
+- - File systems are thin provisioned and do not have a fixed size
+- - The thin volume which is an integrated part of the file system automatically grows as more data is added to the file system
+
+## Creating Stratis Volumes
+- `yum install stratis-cli stratisd`
+- `systemctl enable --now stratisd`
+- `stratis pool create mypool /dev/nvme0n2`
+- - add new block devices later using `stratis blockdev add-data`
+- - partitions are NOT supported
+- - note that the block device must be at least 1GiB
+- `stratis fs create mypool myfs1`
+- - note this will create an XFS file system!
+- `stratis fs list mypool` will show all file systems in the pool
+- `mkdir /myfs1`
+- `mount /dev/stratis/mypool/myfs1/myfs1`
+- `stratis pool list`
+- `stratis filesystem list`
+- `stratis blockdev list mypool`
+- `blkid to find the stratis volume UUID`
+- mount by UUID in /etc/fstab
+
+```
+yum install -y stratis-cli stratisd
+systemctl enable --now stratisd
+stratis pool create mypool /dev/nvme0n2
+stratis pool
+stratis fs create mypool myfs1
+stratis fs
+mkdir /myfs1
+mount | grep myfs1
+mount /dev/stratis/mypool/myfs1/myfs1 /myfs1
+mount
+stratis pool list
+stratis fs list
+stratis blockdev list mypool
+lsblk
+blkid
+cat >> /etc/fstab << EOF
+UUID=34234234234234243      /myfs1   xfs    defaults    0 0  EOF
+reboot
+mount | grep myfs
+```
+
+## Extending a Stratis Pool
+- Pools can be extended by adding additional block devices
+- use `stratis pool add-data mypool /dev/nvme0n3` to add another block device
+
+## Monitoring Stratis Volumes
+- Standard Linux tools (df) don`t give accurate sizes as Stratis volumes are thin provisioned
+- use `stratis blockdev` to show information about all block devices used for Stratis
+- use `stratis pool` to show information about all pools
+- - note thath Physical Used should not come too close to Physical size
+- use `stratis filesystem` to monitor individual filesystems
+
+## Understanding Stratis Snapshots
+- A snapshot is an individual file system that can be mounted
+- After creation, snapshots can be modified
+- A snapshot and its origin are not linked: the snapshotted file system can live longer than the file system it was created from
+- Each snapshot needs at least half a Gigabyte of backing storage for the XFS log
+
+- `stratis fs snapshot mypool myfs1 myfs1-snapshot`
+- - changes to the original FS will not be reflected in the snapshot
+- - use `mount /stratis/mypool/my-fs-snapshot /mnt` to mount it
+- Revert the original volume to the state in the snapshot
+- - `unmount /myfs1`
+- - `stratis fs destroy mypool myfs1`
+- - `stratis fs snapshot mypool myfs1-snap myfs1`
+- Note that this approach wouldn´t work on LVM
+
+- `stratis filesystem destroy mypool mysnapshot` will delete a snapshot
+- A similar procedure is used for destroying file systems: `stratis filesystem destroy mypool myfs`
+- When there are no more file systems in a pool, use `stratis pool destroy mypool` to delete the pool
+
+```
+stratis blockdev
+stratis pool
+stratis filesystem
+df -h | grep myfs
+stratis filesystem snapshot mypool myfs1 myfs1-snapshot
+stratis filesystem list
+mount /dev/stratis/mypool/myfs1-snapshot /mnt
+ls /mnt
+cp /etc/a* /mnt
+umount /myfs1
+stratis filesystem destroy mypool myfs1
+stratis filesystem list
+stratis filesystem snapshot mypool myfs1-snapshot myfs1
+mount -a
+cd /myfs1/
+ls
+stratis filesystem destroy mypool myfs1-snapshot
+umount /mnt
+stratis filesystem destroy mypool myfs1-snapshot
+```
+
+## Understanding VDO
+- VDO (Virtual Data optimizer) is used to optimize how data is stored on disk
+- It is used as a separate volume manager on top of which file systems will be created
+- Provides thin provisioned storage
+- - use a logical size 10 times the physical size for VMs and containers
+- - use a logical size 3 times the pyhsical size for object storage
+- Used in Cloud/Containers environments
+- It manages deduplicated and compressed storage in RHEL 8
+
+## Configuring VDO Volumes
+- Ensure that underlying block devices are > 4GiB
+- `yum install vdo kmod-kvdo`
+- `vdo create --name=vdo1 --device=/dev/nvme0n2p1 --vdoLogicalSize=1T`
+- `mkfs.xfs -K /dev/mapper/vdo1`
+- `udevadm settle` will wait for the system to register the new device name
+- In /etc/fstab, include the `x-systemd.requires=vdo.service` and the `discard` mount options or use the systemd example file
+- monitor using `vdostats --human-readable`
+
+```
+lsblk
+yum install vdo kmod-kvdo
+man vdo
+vdo create --name=vdo1 --device=/dev/nvme0n2 --vdoLogicalSize=1T
+modprobe kvdo
+reboot
+vdo create --name=vdo1 --device=/dev/nvme0n2 --vdoLogicalSize=1T
+cd /usr/share/doc/vdo
+ls
+cd examples
+ls
+cd systemd
+ls
+mkdir /vdo1
+cp VDO.mount.example /etc/systemd/system/vdo1.mount
+sed -i 's/name.*/name = vdo1.mount/' /etc/systemd/system/vdo1.mount
+sed -i 's/What.*/What = \/dev\/mapper\/vdo1/' /etc/systemd/system/vdo1.mount
+sed -i 's/Where.*/Where = \/vdo1/' /etc/systemd/system/vdo1.mount
+
+systemctl daemon-reload
+systemctl enable --now vdo1.mount
+systemctl status vdo1.mount
+mkfs.xfs -K /dev/mapper/vdo1
+systemctl enable --now vdo1.mount
+systemctl status vdo1.mount
+vdostats --human-readable
+df -h
+reboot
+mount | grep vdo
+
+```
