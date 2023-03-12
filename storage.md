@@ -480,3 +480,32 @@ reboot
 mount | grep vdo
 
 ```
+
+## Understanding LUKS encryption volumes
+/dev/sda1 -> cryptsetup luksFormat  -> cryptsetup luksOpen <secret> -> /dev/mapper/secret -> mkfs  -> mount
+
+## Configuring LUKS encrypted volumes
+- use `parted` to create a partition
+- `cryptsetup luksFormat` will format the LUKS device
+- `cryptsetup luksOpen` will open it and create a device mapper name
+- mount the resulting device mapper device
+- to automate the cyptsetup luksOpen, use /etc/crypttab
+- to automate mounting the volume, use /etc/fstab
+
+```
+parted /dev/nvme0n2
+print
+mkpart
+lsblk | less
+cryptsetup luksFormat /dev/nvme0n2p5
+cryptsetup luksOpen /dev/nvme0n2p5 secret
+ls -l /dev/mapper
+mkfs.xfs /dev/mapper/secret
+mkdir /secret
+cat >> /etc/fstab << EOF
+/dev/mapper/secret      /secret   xfs    defaults    0 0  EOF
+cat >> /etc/crypttab << EOF
+secret /dev/nvme0n2p5 none  EOF
+man crypttab
+reboot
+```
