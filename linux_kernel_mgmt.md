@@ -67,6 +67,8 @@ sysctl -a | grep forward
 cat ip_forward
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 sysctl -a | wc
+cd /usr/lib/sysctl.d/
+ls
 ```
 
 # Updating the kernel
