@@ -33,3 +33,64 @@ source myscript
 pwd
 
 ```
+
+# Using Loops in Shell Scripts 
+- Different conditional statements are available in bash
+- `if ... then ... fi`
+- `while ... do ... done`
+- `until ... do ... done`
+- `case ... in ... esac`
+- `for ... in ... do ... done`
+
+```
+cat > myargument << EOF
+#!/bin/bash
+
+if [ -z $1 ]
+then 
+    echo you have to provide an agrument
+    exit 6
+fi
+
+echo the argument is $1
+EOF
+chmod u+x argument 
+man test
+./myargument
+echo $?
+./myargument abc
+echo $?
+
+cat > countdown << EOF
+#!/bin/bash
+COUNTER=$1
+COUNTER=$(( COUNTER * 60 ))
+
+minusone() {
+    COUNTER=$(( COUNTER - 1 ))
+    sleep 1
+}
+
+while [ $COUNTER -gt 0 ]
+do
+    echo you have $COUNTER seconds left
+    minusone
+done
+[ $COUNTER = 0 ] && echo time is up && minusone
+[ $COUNTER = "-1" ] && echo you are one second late && minusone
+
+while true
+do 
+    echo you are now ${COUNTER#-} seconds late
+    minusone
+done
+EOF
+
+echo $(( 2 + 4 ))
+echo $(( 2 * 4 ))
+echo $(( 5 / 2 ))
+
+chmod +x countdown
+./countdown 1
+```
+
