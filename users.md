@@ -254,6 +254,7 @@ chmod 1770 mydir
 chmod +t mydir
 
 chmod +t /data/profs
+```
 
 ## ACLs
 ACLs are used to grant permissions to additional users and groups
