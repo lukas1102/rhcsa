@@ -186,3 +186,41 @@ $ podman run -d --name mynewdb -v /dbfiles:/var/lib/mysql:Z -e MYSQL_ROOT_PASSWO
  podman exec mynewdb ls /var/lib/mysql
 ```
 
+# Managing Containers as Services
+- To automatically start containers in a stand-alone situation, you can create systemd user unit files for rootless containers and manage them with `systemctl`
+- If Kubernetes or OpenShift is used, containers will be automatically started by default
+- Systemd user services start when a user session is opened, and close when the user session is stopped
+- Use `loginctl enable-linger` to change that behaviour and start user services for a specific user (requires root privileges)
+- - `loginctl enable-linger linda`
+- - `loginctl show-user linda`
+- - `loginctl disble-linger linda`
+- Create a regular user account to manage all containers
+- Use `podman` to generate a user systemd file for an existing container
+- Notice the file will be generated in the current directory
+- - `podman generate systemd --name myweb --files`
+- To have systemd create the container when the service starts, and delete it again when the service stops, add `--new`
+- - `podman generate systemd --name ephermeral_ellie --files --new`
+- To generate a service file for a root container, do it from /etc/systemd/system as the current directory
+- Create user specific unit files in ~/.config/systemd/user
+- Manage them using `systemctl --user`
+- `systemctl --user daemon-reload`
+- `systemctl --user enable myapp.service` (requires linger)
+- `systemctl --user start myapp.service`
+- `systemctl --user` commands only work when logging in on console or SSH and do not work in sudo and su sessions
+
+```
+$ sudo -i
+# loginctl enable-linger student
+# loginctl show-user student
+$ mkdir -p .config/systemd/user
+$ cd .config/systemd/user
+$ podman ps
+$ podman generate systemd mynewdb --files
+$ podman generate systemd --name mynewdb --files
+$ systemctl --user daemon-reload
+$ systemctl --user enable container-mynewdb.service
+$ systemctl --user status container-mynewdb.service
+# reboot
+$ podman ps
+$ systemctl --user status container-mynewdb.service
+```
