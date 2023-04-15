@@ -43,4 +43,6 @@ chronyc sources
 date -s 10:07
 timedatctl status
 
+timedatectl set-ntp yes
+
 ```

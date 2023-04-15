@@ -90,7 +90,7 @@ passwd linda
 
 ## user default settings
 `useradd -D` to specify default settings <br />
-file /etc/default/useradd aplly to useradd only <br />
+file /etc/default/useradd apply to useradd only <br />
  
 *SKEL:/etc/skel	*	(files in /etc/skel are created to the user home directory upon creation) <br />
 

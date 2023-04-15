@@ -69,12 +69,12 @@ atq
 # Managing temporary files
 ## understanding systemd-tmpfiles
 - The /usr/lib/tmpfiles.d directory manages settings for creating, deleting and cleaning up of temporary files
-- The `systemd-tmpfiles-clean.timer` uint can be configured to automatically clean up temporary files
+- The `systemd-tmpfiles-clean.timer` unit can be configured to automatically clean up temporary files
 - - it triggers the `systemd-tmpfiles-clean.service`
 - - this service runs `systemd-tmpfiles --clean`
 - The /usr/lib/tmpfiles.d/tmp.conf file contains settings for the automatic tmp file cleanup
 - When making modifications, copy the file to /etc/tmpfiles.d
-- After making modifications ot this file, use `systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf` to ensure the file does not contain any errors
+- After making modifications to this file, use `systemd-tmpfiles --clean /etc/tmpfiles.d/tmp.conf` to ensure the file does not contain any errors
 
 ## understanding tmp.conf
 - in tmp.conf you'll find lines specifiying which directory to monitor, which permissions are set on that directory, which owners, and after how many days of not being used the tmp files will be removed

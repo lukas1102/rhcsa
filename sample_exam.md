@@ -17,7 +17,7 @@
 - Ensure that while creating new users, an empty file with the name newfile is created in their home directories
 - Create users victoria and karen Make them a membership of the group students as a secondary group membership
 - Create users anna and amy. Make them a member of the group profs as a seondary group membership
-- Create shared group directoriess /data/students and /data/profs and ensure that members of the group students have full access to /data/students, and members of profs have full access to /data/profs. The others entity should have no access at all
+- Create shared group directories /data/students and /data/profs and ensure that members of the group students have full access to /data/students, and members of profs have full access to /data/profs. The others entity should have no access at all
 - Ensure that all new files in these directories are automatically group-owned by the group-owner of the directory
 - Ensure that only the owner of a file is allowed to remove files
 - User anna is head-master and should be allowed to remove all files

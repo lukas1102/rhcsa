@@ -187,6 +187,7 @@ ls by-path/
 - Mounts can be created using systemd .mount file
 - Using .mount files allows you to be more specific in defining dependencies
 - Use `systemctl cat tmp.mount` for an example
+- Name of the systemd file should reflect the directory
 
 ```
 systemctl cat tmp.mount

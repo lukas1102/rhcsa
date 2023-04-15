@@ -265,7 +265,7 @@ cut -f 1 -d : /etc/passwd | sort | tr [a-z] [A-Z]
 cut -f 1 -d : /etc/passwd | sort | tr [:lower:] [:upper:] (also works with special chars)
 ```
 
-### grep (generic regular expressions parser, for find test in files)
+### grep (generic regular expressions parser, for find text in files)
 ```
 ps aux | grep ssh 
 grep linda * 2> /dev/null 

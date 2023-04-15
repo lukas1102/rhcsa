@@ -130,7 +130,7 @@ mount | grep data
 su - ldapuser1
 exit
 ssh 192.168.4.210
-echo "/home/ldap    *(rw)" > /etc/exports
+echo "/home/ldap    *(rw)" >> /etc/exports
 systemctl restart nfs-server
 exit
 showmount -e 192.168.4.210
