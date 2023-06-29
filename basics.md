@@ -294,7 +294,7 @@ egrep 'b.?t' regtext (extended regular expression ? 0,1 time occurence)
 grep '\<root\>' * 2> /dev/null (searches for the word root)
 grep '\<alex\>' * 2> /dev/null 
 grep '^alex$' * 2> /dev/null 
-egrep '^.{3}$' * 2> /dev/null 
+egrep '^.{3}$' * 2> /dev/null  	
 ```
 ^ beginning of line <br />
 $ end of line <br />

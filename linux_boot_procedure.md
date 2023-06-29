@@ -25,7 +25,7 @@ ctrl + x to start
 - to edit persistent Grub2 parameter, edit the configuration file in /etc/default/grub
 - After writing changes, compile changes to grub.cfg
 - - `grub2-mkconfig -o /boot/grub2/grub.cfg`
-- - `grub2-mkconfig - o /boot/efi/EFI/redhat/grub.cfg`
+- - `grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg`
 
 ```
 mount | grep '^/'
